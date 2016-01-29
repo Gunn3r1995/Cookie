@@ -8,7 +8,6 @@ public class StartingClass extends Applet implements Runnable {
 
 	@Override
 	public void init() {
-
 		setSize(800, 480);
 		setBackground(Color.BLUE);
 		setFocusable(true);
