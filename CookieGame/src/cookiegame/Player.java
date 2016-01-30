@@ -1,46 +1,44 @@
 package cookiegame;
 
-public class Enemy {
-	// In Java, Class Variables should be private so that only its methods can
-	// change them.
+import java.awt.Graphics;
+
+public class Player {
+
 	private int centerX = 100;
 	private int centerY = 382;
 	private boolean jumped = false;
+
 	private int speedX = 0;
 	private int speedY = 1;
+
 
 	public void update() {
 
 		// Moves Character or Scrolls Background accordingly.
 		if (speedX < 0) {
-			centerX += speedX; // This changes centerX by adding speedX.
+			centerX += speedX;
 		} else if (speedX == 0) {
 			System.out.println("Do not scroll the background.");
 
 		} else {
-			if (centerX <= 150) { // If the character's centerX is in the left
-									// 150 pixels
-				centerX += speedX; // Change centerX by adding speedX.
+			if (centerX <= 150) {
+				centerX += speedX;
 			} else {
 				System.out.println("Scroll Background Here");
 			}
 		}
-
+		
 		// Updates Y Position
+	
 		if (centerY + speedY >= 382) {
-			// 382 is where the character's centerY would be if he were standing
-			// on the ground.
 			centerY = 382;
-		} else {
-			centerY += speedY; // Add speedY to centerY to determine its new
-								// position
-		}
+		}else{                        
+                        centerY += speedY;
+                }
 
 		// Handles Jumping
 		if (jumped == true) {
-			speedY += 1; // While the character is in the air, add 1 to his
-							// speedY.
-							// NOTE: This will bring the character downwards!
+			speedY += 1;
 
 			if (centerY + speedY >= 382) {
 				centerY = 382;
@@ -51,11 +49,29 @@ public class Enemy {
 		}
 
 		// Prevents going beyond X coordinate of 0
-		if (centerX + speedX <= 60) { // If speedX plus centerX would bring the
-										// character //outside the screen,
+		if (centerX + speedX <= 60) {
 			centerX = 61;
-			// Fix the character's centerX at 60 pixels.
 		}
+	}
+
+	public void moveRight() {
+		speedX = 6;
+	}
+
+	public void moveLeft() {
+		speedX = -6;
+	}
+
+	public void stop() {
+		speedX = 0;
+	}
+
+	public void jump() {
+		if (jumped == false) {
+			speedY = -15;
+			jumped = true;
+		}
+
 	}
 
 	public int getCenterX() {
@@ -98,23 +114,5 @@ public class Enemy {
 		this.speedY = speedY;
 	}
 
-	public void moveRight() {
-		speedX = 6;
-	}
 
-	public void moveLeft() {
-		speedX = -6;
-	}
-
-	public void stop() {
-		speedX = 0;
-	}
-
-	public void jump() {
-		if (jumped == false) {
-			speedY = -15;
-			jumped = true;
-		}
-
-	}
 }

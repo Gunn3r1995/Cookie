@@ -11,7 +11,7 @@ import java.net.URL;
 
 public class StartingClass extends Applet implements Runnable, KeyListener {
 
-	private Enemy robot;
+	private Player robot;
 	private Image image, character;
 	private Graphics second;
 	private URL base;
@@ -20,7 +20,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	public void init() {
 
 		setSize(800, 480);
-		setBackground(Color.BLUE);
+		setBackground(Color.BLACK);
 		setFocusable(true);
 		addKeyListener(this);
 		Frame frame = (Frame) this.getParent().getParent();
@@ -32,13 +32,13 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		}
 
 		// Image Setups
-		character = getImage(base, "/Users/Shane/Documents/OneDrive/Documents/Projects/Cookie/Imagescharacter.png");
+		character = getImage(base, "/Users/Shane/Documents/OneDrive/Documents/Projects/Cookie/Images/character.png");
 
 	}
 
 	@Override
 	public void start() {
-		robot = new Enemy();
+		robot = new Player();
 
 		Thread thread = new Thread(this);
 		thread.start();
@@ -149,4 +149,5 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		// TODO Auto-generated method stub
 
 	}
+
 }
