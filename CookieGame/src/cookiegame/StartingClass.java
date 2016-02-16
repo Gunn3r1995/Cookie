@@ -12,7 +12,7 @@ import java.net.URL;
 public class StartingClass extends Applet implements Runnable, KeyListener {
 
 	private Player player;
-	private Image image, character;
+	private Image image, character,background;
 	private Graphics second;
 	private URL base;
 	private static Background background1, background2;
@@ -34,6 +34,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 		// Image Setups
 		character = getImage(base, "/Users/Shane/Documents/OneDrive/Documents/Projects/Cookie/CookieGame/src/Images/character.png");
+		background = getImage(base, "/Users/Shane/Documents/OneDrive/Documents/Projects/Cookie/CookieGame/src/Images/background1.png");
 
 	}
 
@@ -90,6 +91,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 	@Override
 	public void paint(Graphics g) {
+		g.drawImage(background, background1.getBackgroundX(), background1.getBackgroundY(), this);
+		g.drawImage(background, background2.getBackgroundX(), background2.getBackgroundY(), this);
 		g.drawImage(character, player.getCenterX() - 61, player.getCenterY() - 63, this);
 
 	}
