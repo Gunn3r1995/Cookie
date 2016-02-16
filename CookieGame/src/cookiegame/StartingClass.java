@@ -12,7 +12,7 @@ import java.net.URL;
 public class StartingClass extends Applet implements Runnable, KeyListener {
 
 	private Player player;
-	private Image image, character, background;
+	private Image image, character, characterDown, characterJumped, currentSprite, background;
 	private Graphics second;
 	private URL base;
 	private static Background background1, background2;
@@ -34,6 +34,9 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 		// Image Setups
 		character = getImage(base, "Images/character.png");
+		characterDown = getImage(base, "Images/Down.png");
+		characterJumped = getImage(base, "Images/Jumped.png");
+		currentSprite = character;
 		background = getImage(base, "Images/background.png");
 
 	}
@@ -61,9 +64,15 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	@Override
 	public void run() {
 		while (true) {
+			player.update();
+			if(player.isJumped()){
+				currentSprite = characterJumped;
+			}
+			else if(player.isJumped() == false && player.isCrouched() == false){
+				currentSprite = character;
+			}
 			background1.update();
 			background2.update();
-			player.update();
 			repaint();
 			try {
 				Thread.sleep(17);
@@ -93,7 +102,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	public void paint(Graphics g) {
 		g.drawImage(background, background1.getBackgroundX(), background1.getBackgroundY(), this);
 		g.drawImage(background, background2.getBackgroundX(), background2.getBackgroundY(), this);
-		g.drawImage(character, player.getCenterX() - 61, player.getCenterY() - 63, this);
+		g.drawImage(currentSprite, player.getCenterX() - 61, player.getCenterY() - 63, this);
 
 	}
 
@@ -108,7 +117,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		case KeyEvent.VK_S:
 			currentSprite = characterDown;
 			if (player.isJumped() == false){
-				player.setDucked(true);
+				player.setCrouched(true);
 				player.setSpeedX(0);
 			}
 			break;
@@ -140,7 +149,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 		case KeyEvent.VK_S:
 			currentSprite = character;
-			player.setDucked(false);
+			player.setCrouched(false);
 			break;
 
 		case KeyEvent.VK_A:
@@ -155,22 +164,20 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			break;
 
 		}
-
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
-	public static Background getBackground1() {
-		return background1;
-	}
-	
-	public static Background getBackground2() {
-		return background1;
-	}
-	
 	
 	}
 
+	public static Background getBackground1() {
+		return background1;
+	}
+
+	public static Background getBackground2() {
+		return background2;
+	}	
+	
 }

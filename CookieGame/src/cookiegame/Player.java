@@ -14,10 +14,10 @@ public class Player {
 	private boolean jumped = false;
 	private boolean movingLeft = false;
 	private boolean movingRight = false;
-	private boolean ducked = false;
+	private boolean crouched = false;
 		
-		private static Background background1 = StartingClass.getBackground1;
-		private static Background background2 = StartingClass.getBackground2;
+		private static Background background1 = StartingClass.getBackground1();
+		private static Background background2 = StartingClass.getBackground2();
 		
 
 	private int speedX = 0;
@@ -68,13 +68,13 @@ public class Player {
 	}
 
 	public void moveRight() {
-		if(ducked == false){
+		if(crouched == false){
 			speedX = MOVESPEED;
 		}
 	}
 
 	public void moveLeft() {
-		if(ducked == false){
+		if(crouched == false){
 			speedX = -MOVESPEED;
 		}
 	}
@@ -151,12 +151,12 @@ public class Player {
 		this.speedY = speedY;
 	}
 	
-	public boolean isDucked(){
-		return ducked;
+	public boolean isCrouched(){
+		return crouched;
 	}
 	
-	public void setDucked(boolean ducked) {
-		this.ducked = ducked;
+	public void setCrouched(boolean crouched) {
+		this.crouched = crouched;
 	}
 	
 	public boolean isMovingRight() {
