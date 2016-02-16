@@ -11,10 +11,11 @@ import java.net.URL;
 
 public class StartingClass extends Applet implements Runnable, KeyListener {
 
-	private Player robot;
+	private Player player;
 	private Image image, character;
 	private Graphics second;
 	private URL base;
+	private static Background background1, background2;
 
 	@Override
 	public void init() {
@@ -38,7 +39,9 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 	@Override
 	public void start() {
-		robot = new Player();
+		background1 = new Background(0,0);
+		background2 = new Background(2160,0);
+		player = new Player();
 
 		Thread thread = new Thread(this);
 		thread.start();
@@ -57,7 +60,9 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	@Override
 	public void run() {
 		while (true) {
-
+			player.update();
+			background1.update();
+			background2.update();
 			repaint();
 			try {
 				Thread.sleep(17);
@@ -85,7 +90,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 	@Override
 	public void paint(Graphics g) {
-		g.drawImage(character, robot.getCenterX() - 61, robot.getCenterY() - 63, this);
+		g.drawImage(character, player.getCenterX() - 61, player.getCenterY() - 63, this);
 
 	}
 
@@ -102,15 +107,15 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			break;
 
 		case KeyEvent.VK_LEFT:
-			System.out.println("Move left");
+			player.moveLeft();
 			break;
 
 		case KeyEvent.VK_RIGHT:
-			System.out.println("Move right");
+			player.moveRight();
 			break;
 
 		case KeyEvent.VK_SPACE:
-			System.out.println("Jump");
+			player.jump();
 			break;
 
 		}
@@ -129,11 +134,11 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			break;
 
 		case KeyEvent.VK_LEFT:
-			System.out.println("Stop moving left");
+			player.stop();
 			break;
 
 		case KeyEvent.VK_RIGHT:
-			System.out.println("Stop moving right");
+			player.stop();
 			break;
 
 		case KeyEvent.VK_SPACE:
