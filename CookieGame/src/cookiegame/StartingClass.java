@@ -12,7 +12,7 @@ import java.net.URL;
 public class StartingClass extends Applet implements Runnable, KeyListener {
 
 	private Player player;
-	private Image image, character,background;
+	private Image image, character, background;
 	private Graphics second;
 	private URL base;
 	private static Background background1, background2;
@@ -34,7 +34,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 		// Image Setups
 		character = getImage(base, "Images/character.png");
-		background = getImage(base, "Images/background1.png");
+		background = getImage(base, "Images/background.png");
 
 	}
 
@@ -61,9 +61,9 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	@Override
 	public void run() {
 		while (true) {
-			player.update();
 			background1.update();
 			background2.update();
+			player.update();
 			repaint();
 			try {
 				Thread.sleep(17);
@@ -101,20 +101,26 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	public void keyPressed(KeyEvent e) {
 
 		switch (e.getKeyCode()) {
-		case KeyEvent.VK_UP:
+		case KeyEvent.VK_W:
 			System.out.println("Move up");
 			break;
 
-		case KeyEvent.VK_DOWN:
-			System.out.println("Move down");
+		case KeyEvent.VK_S:
+			currentSprite = characterDown;
+			if (player.isJumped() == false){
+				player.setDucked(true);
+				player.setSpeedX(0);
+			}
 			break;
 
-		case KeyEvent.VK_LEFT:
+		case KeyEvent.VK_A:
 			player.moveLeft();
+			player.setMovingLeft(true);
 			break;
 
-		case KeyEvent.VK_RIGHT:
+		case KeyEvent.VK_D:
 			player.moveRight();
+			player.setMovingRight(true);
 			break;
 
 		case KeyEvent.VK_SPACE:
@@ -128,24 +134,24 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()) {
-		case KeyEvent.VK_UP:
+		case KeyEvent.VK_W:
 			System.out.println("Stop moving up");
 			break;
 
-		case KeyEvent.VK_DOWN:
-			System.out.println("Stop moving down");
+		case KeyEvent.VK_S:
+			currentSprite = character;
+			player.setDucked(false);
 			break;
 
-		case KeyEvent.VK_LEFT:
-			player.stop();
+		case KeyEvent.VK_A:
+			player.stopLeft();
 			break;
 
-		case KeyEvent.VK_RIGHT:
-			player.stop();
+		case KeyEvent.VK_D:
+			player.stopRight();
 			break;
 
 		case KeyEvent.VK_SPACE:
-			System.out.println("Stop jumping");
 			break;
 
 		}
@@ -155,7 +161,16 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		
+	public static Background getBackground1() {
+		return background1;
+	}
+	
+	public static Background getBackground2() {
+		return background1;
+	}
+	
+	
 	}
 
 }
