@@ -32,7 +32,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		}
 
 		// Image Setups
-		character = getImage(base, "/Users/Shane/Documents/OneDrive/Documents/Projects/Cookie/Images/character.png");
+		character = getImage(base, "/Users/Shane/Documents/OneDrive/Documents/Projects/Cookie/CookieGame/src/Images/character.png");
 
 	}
 
