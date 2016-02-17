@@ -75,6 +75,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			} else if (player.isJumped() == false && player.isCrouched() == false) {
 				currentSprite = character;
 			}
+			heliboy1.update();
+			heliboy2.update();
 			background1.update();
 			background2.update();
 			repaint();
@@ -107,6 +109,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		g.drawImage(background, background1.getBackgroundX(), background1.getBackgroundY(), this);
 		g.drawImage(background, background2.getBackgroundX(), background2.getBackgroundY(), this);
 		g.drawImage(currentSprite, player.getCenterX() - 61, player.getCenterY() - 63, this);
+		g.drawImage(heliboy, heliboy1.getCenterX() - 48, heliboy1.getCenterY() - 48, this);
+		g.drawImage(heliboy, heliboy2.getCenterX() - 48, heliboy2.getCenterY() - 48, this);
 
 	}
 
