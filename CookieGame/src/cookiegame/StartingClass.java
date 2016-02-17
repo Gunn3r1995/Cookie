@@ -12,7 +12,8 @@ import java.net.URL;
 public class StartingClass extends Applet implements Runnable, KeyListener {
 
 	private Player player;
-	private Image image, character, characterDown, characterJumped, currentSprite, background;
+	private Heliboy heliboy1, heliboy2;
+	private Image image, character, characterDown, characterJumped, currentSprite, heliboy, background;
 	private Graphics second;
 	private URL base;
 	private static Background background1, background2;
@@ -37,6 +38,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		characterDown = getImage(base, "Images/Down.png");
 		characterJumped = getImage(base, "Images/Jumped.png");
 		currentSprite = character;
+		heliboy = getImage(base, "Images/heliboy.png");
 		background = getImage(base, "Images/background.png");
 
 	}
@@ -46,6 +48,9 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		background1 = new Background(0, 0);
 		background2 = new Background(2160, 0);
 		player = new Player();
+		heliboy1 = new Heliboy(340, 360);
+		heliboy2 = new Heliboy(700, 360);
+		
 
 		Thread thread = new Thread(this);
 		thread.start();
