@@ -43,8 +43,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 	@Override
 	public void start() {
-		background1 = new Background(0,0);
-		background2 = new Background(2160,0);
+		background1 = new Background(0, 0);
+		background2 = new Background(2160, 0);
 		player = new Player();
 
 		Thread thread = new Thread(this);
@@ -65,10 +65,9 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	public void run() {
 		while (true) {
 			player.update();
-			if(player.isJumped()){
+			if (player.isJumped()) {
 				currentSprite = characterJumped;
-			}
-			else if(player.isJumped() == false && player.isCrouched() == false){
+			} else if (player.isJumped() == false && player.isCrouched() == false) {
 				currentSprite = character;
 			}
 			background1.update();
@@ -116,7 +115,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 		case KeyEvent.VK_S:
 			currentSprite = characterDown;
-			if (player.isJumped() == false){
+			if (player.isJumped() == false) {
 				player.setCrouched(true);
 				player.setSpeedX(0);
 			}
@@ -169,7 +168,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-	
+
 	}
 
 	public static Background getBackground1() {
@@ -178,6 +177,6 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 	public static Background getBackground2() {
 		return background2;
-	}	
-	
+	}
+
 }

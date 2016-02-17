@@ -4,45 +4,43 @@ import java.awt.Graphics;
 
 public class Player {
 
-	//Constants
+	// Constants
 	final int JUMPSPEED = -10;
 	final int MOVESPEED = 5;
 	final int GROUND = 382;
-	
+
 	private int centerX = 100;
 	private int centerY = GROUND;
 	private boolean jumped = false;
 	private boolean movingLeft = false;
 	private boolean movingRight = false;
 	private boolean crouched = false;
-		
-		private static Background background1 = StartingClass.getBackground1();
-		private static Background background2 = StartingClass.getBackground2();
-		
+
+	private static Background background1 = StartingClass.getBackground1();
+	private static Background background2 = StartingClass.getBackground2();
 
 	private int speedX = 0;
 	private int speedY = 1;
-
 
 	public void update() {
 
 		// Moves Character or Scrolls Background accordingly.
 		if (speedX < 0) {
 			centerX += speedX;
-		} 
+		}
 		if (speedX == 0 || speedX < 0) {
 			background1.setSpeedX(0);
 			background2.setSpeedX(0);
 
-		} 
-		if (centerX <= 200 && speedX > 0) {
-				centerX += speedX;
 		}
-		if(speedX > 0 && centerX > 200){
+		if (centerX <= 200 && speedX > 0) {
+			centerX += speedX;
+		}
+		if (speedX > 0 && centerX > 200) {
 			background1.setSpeedX(-MOVESPEED);
 			background2.setSpeedX(-MOVESPEED);
 		}
-		
+
 		// Updates Y Position
 		centerY += speedY;
 		if (centerY + speedY >= GROUND) {
@@ -68,37 +66,37 @@ public class Player {
 	}
 
 	public void moveRight() {
-		if(crouched == false){
+		if (crouched == false) {
 			speedX = MOVESPEED;
 		}
 	}
 
 	public void moveLeft() {
-		if(crouched == false){
+		if (crouched == false) {
 			speedX = -MOVESPEED;
 		}
 	}
-	
+
 	public void stopRight() {
 		setMovingRight(false);
 		stop();
 	}
-	
+
 	public void stopLeft() {
 		setMovingLeft(false);
 		stop();
 	}
 
 	public void stop() {
-		if(isMovingRight() == false && isMovingLeft() == false){
+		if (isMovingRight() == false && isMovingLeft() == false) {
 			speedX = 0;
 		}
-		
-		if(isMovingRight() == false && isMovingLeft() == true){
+
+		if (isMovingRight() == false && isMovingLeft() == true) {
 			moveLeft();
 		}
-		
-		if(isMovingRight() == true && isMovingLeft() == false){
+
+		if (isMovingRight() == true && isMovingLeft() == false) {
 			moveRight();
 		}
 	}
@@ -150,30 +148,29 @@ public class Player {
 	public void setSpeedY(int speedY) {
 		this.speedY = speedY;
 	}
-	
-	public boolean isCrouched(){
+
+	public boolean isCrouched() {
 		return crouched;
 	}
-	
+
 	public void setCrouched(boolean crouched) {
 		this.crouched = crouched;
 	}
-	
+
 	public boolean isMovingRight() {
 		return movingRight;
 	}
-	
-	public void setMovingRight(boolean movingRight){
+
+	public void setMovingRight(boolean movingRight) {
 		this.movingRight = movingRight;
 	}
-	
+
 	public boolean isMovingLeft() {
 		return movingLeft;
 	}
-	
-	public void setMovingLeft(boolean movingLeft){
+
+	public void setMovingLeft(boolean movingLeft) {
 		this.movingLeft = movingLeft;
 	}
-
 
 }
