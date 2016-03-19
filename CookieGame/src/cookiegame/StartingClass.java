@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class StartingClass extends Applet implements Runnable, KeyListener {
 
@@ -26,7 +27,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	public void init() {
 
 		setSize(800, 480);
-		setBackground(Color.BLUE);
+		setBackground(Color.WHITE);
 		setFocusable(true);
 		addKeyListener(this);
 		Frame frame = (Frame) this.getParent().getParent();
@@ -79,6 +80,17 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			} else if (player.isJumped() == false && player.isCrouched() == false) {
 				currentSprite = character;
 			}
+			
+			ArrayList projectiles = player.getProjectiles();
+			for (int i = 0; i < projectiles.size(); i++) {
+				Projectile p = (Projectile) projectiles.get(i);
+				if (p.isVisible() == true) {
+					p.update();
+				} else {
+					projectiles.remove(i);
+				}
+			}
+			
 			heliboy1.update();
 			heliboy2.update();
 			background1.update();
@@ -115,6 +127,13 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		g.drawImage(currentSprite, player.getCenterX() - 61, player.getCenterY() - 63, this);
 		g.drawImage(heliboy, heliboy1.getCenterX() - 48, heliboy1.getCenterY() - 48, this);
 		g.drawImage(heliboy, heliboy2.getCenterX() - 48, heliboy2.getCenterY() - 48, this);
+		
+		ArrayList projectiles = player.getProjectiles();
+		for (int i = 0; i < projectiles.size(); i++) {
+			Projectile p = (Projectile) projectiles.get(i);
+			g.setColor(Color.YELLOW);
+			g.fillRect(p.getX(), p.getY(), 10, 5);
+		}
 
 	}
 
@@ -146,6 +165,12 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 		case KeyEvent.VK_SPACE:
 			player.jump();
+			break;
+			
+		case KeyEvent.VK_CONTROL:
+			if (player.isCrouched() == false && player.isJumped() == false) {
+				player.shoot();
+			}
 			break;
 
 		}
