@@ -112,7 +112,7 @@ public class Player {
 	}
 	
 	public void shootUp() {
-		Projectile p = new Projectile(centerX + 25 , centerY - 50, "Up");
+		Projectile p = new Projectile(centerX + 0 , centerY - 50, "Up");
 		projectiles.add(p);
 	}
 	
@@ -122,7 +122,7 @@ public class Player {
 	}
 	
 	public void shootDown() {
-		Projectile p = new Projectile(centerX + 25 , centerY - 10, "Down");
+		Projectile p = new Projectile(centerX + 0 , centerY - 10, "Down");
 		projectiles.add(p);
 	}
 	

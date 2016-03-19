@@ -83,9 +83,9 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			
 			ArrayList projectiles = player.getProjectiles();
 			for (int i = 0; i < projectiles.size(); i++) {
-				Projectile pR = (Projectile) projectiles.get(i);
-				if (pR.isVisible() == true) {
-					pR.update();
+				Projectile p = (Projectile) projectiles.get(i);
+				if (p.isVisible() == true) {
+					p.update();
 				} else {
 					projectiles.remove(i);
 				}
@@ -130,9 +130,9 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		
 		ArrayList projectiles = player.getProjectiles();
 		for (int i = 0; i < projectiles.size(); i++) {
-			Projectile pR = (Projectile) projectiles.get(i);
+			Projectile p = (Projectile) projectiles.get(i);
 			g.setColor(Color.YELLOW);
-			g.fillRect(pR.getX(), pR.getY(), 10, 5);
+			g.fillRect(p.getX(), p.getY(), 10, 5);
 		}
 
 	}
