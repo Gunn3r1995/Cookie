@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.net.URL;
 import java.util.ArrayList;
+import cookiegame.framework.Animation;
 
 public class StartingClass extends Applet implements Runnable, KeyListener {
 
@@ -17,11 +18,13 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Player player;
-	private Heliboy heliboy1, heliboy2;
-	private Image image, character, characterDown, characterJumped, currentSprite, heliboy, background;
+	private Heliboy hboy1, hboy2;
+	private Image image, character, character2, character3, characterDown, characterJumped, 
+	currentSprite, heliboy, heliboy2, heliboy3, heliboy4, heliboy5, background;
 	private Graphics second;
 	private URL base;
 	private static Background background1, background2;
+	private Animation anim, hanim;
 
 	@Override
 	public void init() {
@@ -37,14 +40,41 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-
+		
 		// Image Setups
-		character = getImage(base, "Images/character.png");
-		characterDown = getImage(base, "Images/Down.png");
-		characterJumped = getImage(base, "Images/Jumped.png");
-		currentSprite = character;
-		heliboy = getImage(base, "Images/heliboy.png");
-		background = getImage(base, "Images/background.png");
+				character = getImage(base, "Images/character.png");
+				character2 = getImage(base, "Images/character2.png");
+				character3 = getImage(base, "Images/character3.png");
+				
+				characterDown = getImage(base, "Images/down.png");
+				characterJumped = getImage(base, "Images/jumped.png");
+				
+				heliboy  = getImage(base, "Images/heliboy.png");
+				heliboy2 = getImage(base, "Images/heliboy2.png");
+				heliboy3 = getImage(base, "Images/heliboy3.png");
+				heliboy4 = getImage(base, "Images/heliboy4.png");
+				heliboy5 = getImage(base, "Images/heliboy5.png");
+
+
+				background = getImage(base, "Images/background.png");
+
+				anim = new Animation();
+				anim.addFrame(character, 1250);
+				anim.addFrame(character2, 50);
+				anim.addFrame(character3, 50);
+				anim.addFrame(character2, 50);
+				
+				hanim = new Animation();
+				hanim.addFrame(heliboy, 100);
+				hanim.addFrame(heliboy2, 100);
+				hanim.addFrame(heliboy3, 100);
+				hanim.addFrame(heliboy4, 100);
+				hanim.addFrame(heliboy5, 100);
+				hanim.addFrame(heliboy4, 100);
+				hanim.addFrame(heliboy3, 100);
+				hanim.addFrame(heliboy2, 100);
+				
+				currentSprite = anim.getImage();
 
 	}
 
@@ -53,8 +83,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		background1 = new Background(0, 0);
 		background2 = new Background(2160, 0);
 		player = new Player();
-		heliboy1 = new Heliboy(340, 360);
-		heliboy2 = new Heliboy(700, 360);
+		hboy1 = new Heliboy(340, 360);
+		hboy2 = new Heliboy(700, 360);
 		
 
 		Thread thread = new Thread(this);
@@ -78,7 +108,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			if (player.isJumped()) {
 				currentSprite = characterJumped;
 			} else if (player.isJumped() == false && player.isCrouched() == false) {
-				currentSprite = character;
+				currentSprite = anim.getImage();
 			}
 			
 			ArrayList projectiles = player.getProjectiles();
@@ -91,10 +121,12 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 				}
 			}
 			
-			heliboy1.update();
-			heliboy2.update();
+			hboy1.update();
+			hboy2.update();
 			background1.update();
 			background2.update();
+			
+			animate();
 			repaint();
 			try {
 				Thread.sleep(17);
@@ -119,14 +151,19 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		g.drawImage(image, 0, 0, this);
 
 	}
+	
+	public void animate() {
+		   anim.update(10);
+		   hanim.update(50);
+		}
 
 	@Override
 	public void paint(Graphics g) {
 		g.drawImage(background, background1.getBackgroundX(), background1.getBackgroundY(), this);
 		g.drawImage(background, background2.getBackgroundX(), background2.getBackgroundY(), this);
 		g.drawImage(currentSprite, player.getCenterX() - 61, player.getCenterY() - 63, this);
-		g.drawImage(heliboy, heliboy1.getCenterX() - 48, heliboy1.getCenterY() - 48, this);
-		g.drawImage(heliboy, heliboy2.getCenterX() - 48, heliboy2.getCenterY() - 48, this);
+		g.drawImage(hanim.getImage(), hboy1.getCenterX() - 48, hboy1.getCenterY() - 48, this);
+		g.drawImage(hanim.getImage(), hboy2.getCenterX() - 48, hboy2.getCenterY() - 48, this);
 		
 		ArrayList projectiles = player.getProjectiles();
 		for (int i = 0; i < projectiles.size(); i++) {
@@ -203,7 +240,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			break;
 
 		case KeyEvent.VK_S:
-			currentSprite = character;
+			currentSprite = anim.getImage();
 			player.setCrouched(false);
 			break;
 
