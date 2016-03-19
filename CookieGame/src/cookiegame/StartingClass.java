@@ -19,7 +19,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	private static final long serialVersionUID = 1L;
 	private Player player;
 	private Heliboy hboy1, hboy2;
-	private Image image, character, character2, character3, characterDown, characterJumped, 
+	private Image image, playerDown, playerUp, character3, characterDown, characterJumped, 
 	currentSprite, heliboy, heliboy2, heliboy3, heliboy4, heliboy5, background;
 	private Graphics second;
 	private URL base;
@@ -42,11 +42,11 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		}
 		
 		// Image Setups
-				character = getImage(base, "Images/character.png");
-				character2 = getImage(base, "Images/character2.png");
-				character3 = getImage(base, "Images/character3.png");
+				playerDown = getImage(base, "Images/PlayerDown.png");
+				playerUp = getImage(base, "Images/PlayerUp.png");
+				//character3 = getImage(base, "Images/character3.png");
 				
-				characterDown = getImage(base, "Images/down.png");
+				//characterDown = getImage(base, "Images/down.png");
 				characterJumped = getImage(base, "Images/jumped.png");
 				
 				heliboy  = getImage(base, "Images/heliboy.png");
@@ -57,12 +57,16 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 
 				background = getImage(base, "Images/background.png");
-
+				
+				currentSprite = playerDown;
+				
 				anim = new Animation();
-				anim.addFrame(character, 1250);
-				anim.addFrame(character2, 50);
-				anim.addFrame(character3, 50);
-				anim.addFrame(character2, 50);
+				if (currentSprite == playerDown){
+					anim.addFrame(playerDown, 1250);
+				}
+				else if (currentSprite == playerDown){
+					anim.addFrame(playerUp, 1250);
+				}
 				
 				hanim = new Animation();
 				hanim.addFrame(heliboy, 100);
@@ -105,11 +109,6 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	public void run() {
 		while (true) {
 			player.update();
-			if (player.isJumped()) {
-				currentSprite = characterJumped;
-			} else if (player.isJumped() == false && player.isCrouched() == false) {
-				currentSprite = anim.getImage();
-			}
 			
 			ArrayList projectiles = player.getProjectiles();
 			for (int i = 0; i < projectiles.size(); i++) {
@@ -179,15 +178,13 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_W:
-			System.out.println("Move up");
+			currentSprite = playerUp;
+			player.moveUp();
 			break;
 
 		case KeyEvent.VK_S:
-			currentSprite = characterDown;
-			if (player.isJumped() == false) {
-				player.setCrouched(true);
-				player.setSpeedX(0);
-			}
+			currentSprite = playerDown;
+			player.moveDown();
 			break;
 
 		case KeyEvent.VK_A:
@@ -201,31 +198,23 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			break;
 
 		case KeyEvent.VK_SPACE:
-			player.jump();
+			System.out.println("Space Pressed");
 			break;
 			
 		case KeyEvent.VK_UP:
-			if (player.isCrouched() == false && player.isJumped() == false) {
 				player.shootUp();
-			}
 			break;
 			
 		case KeyEvent.VK_RIGHT:
-			if (player.isCrouched() == false && player.isJumped() == false) {
 				player.shootRight();
-			}
 			break;
 			
 		case KeyEvent.VK_DOWN:
-			if (player.isCrouched() == false && player.isJumped() == false) {
 				player.shootDown();
-			}
 			break;
 			
 		case KeyEvent.VK_LEFT:
-			if (player.isCrouched() == false && player.isJumped() == false) {
 				player.shootLeft();
-			}
 			break;
 
 		}
@@ -236,12 +225,10 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_W:
-			System.out.println("Stop moving up");
+			player.stopUp();
 			break;
 
 		case KeyEvent.VK_S:
-			currentSprite = anim.getImage();
-			player.setCrouched(false);
 			break;
 
 		case KeyEvent.VK_A:
@@ -253,6 +240,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			break;
 
 		case KeyEvent.VK_SPACE:
+			System.out.println("Space Released");
 			break;
 
 		}

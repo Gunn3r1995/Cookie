@@ -11,17 +11,17 @@ public class Player {
 
 	private int centerX = 100;
 	private int centerY = GROUND;
-	private boolean jumped = false;
-	private boolean movingLeft = false;
+	private boolean movingUp = false;
 	private boolean movingRight = false;
-	private boolean crouched = false;
+	private boolean movingDown = false;
+	private boolean movingLeft = false;
 
 	private static Background background1 = StartingClass.getBackground1();
 	private static Background background2 = StartingClass.getBackground2();
 
 	private int speedX = 0;
-	private int speedY = 1;
-	
+	private int speedY = 0;
+
 	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 
 	public void update() {
@@ -35,10 +35,10 @@ public class Player {
 			background2.setSpeedX(0);
 
 		}
-		if (centerX <= 200 && speedX > 0) {
+		if (centerX <= 800 && speedX > 0) {
 			centerX += speedX;
 		}
-		if (speedX > 0 && centerX > 200) {
+		if (speedX > 0 && centerX > 800) {
 			background1.setSpeedX(-MOVESPEED);
 			background2.setSpeedX(-MOVESPEED);
 		}
@@ -46,19 +46,7 @@ public class Player {
 		// Updates Y Position
 		centerY += speedY;
 		if (centerY + speedY >= GROUND) {
-			centerY = GROUND;
-		}
-
-		// Handles Jumping
-		if (jumped == true) {
-			speedY += 1;
-
-			if (centerY + speedY >= GROUND) {
-				centerY = GROUND;
-				speedY = 0;
-				jumped = false;
-			}
-
+			// centerY = GROUND;
 		}
 
 		// Prevents going beyond X coordinate of 0
@@ -67,20 +55,36 @@ public class Player {
 		}
 	}
 
+	// Move Player
+	public void moveUp() {
+		speedY = -MOVESPEED;
+	}
+
 	public void moveRight() {
-		if (crouched == false) {
-			speedX = MOVESPEED;
-		}
+		speedX = MOVESPEED;
+	}
+
+	public void moveDown() {
+		speedY = MOVESPEED;
 	}
 
 	public void moveLeft() {
-		if (crouched == false) {
-			speedX = -MOVESPEED;
-		}
+		speedX = -MOVESPEED;
+	}
+
+	// Stop Moving
+	public void stopUp() {
+		setMovingUp(false);
+		stop();
 	}
 
 	public void stopRight() {
 		setMovingRight(false);
+		stop();
+	}
+
+	public void stopDown() {
+		setMovingDown(false);
 		stop();
 	}
 
@@ -90,58 +94,60 @@ public class Player {
 	}
 
 	public void stop() {
-		if (isMovingRight() == false && isMovingLeft() == false) {
+		// Not Moving
+		if (isMovingUp() == false && isMovingRight() == false && isMovingDown() == false && isMovingLeft() == false) {
 			speedX = 0;
+			speedY = 0;
 		}
-
-		if (isMovingRight() == false && isMovingLeft() == true) {
-			moveLeft();
+		
+		// Moving Up
+		if (isMovingUp() == true && isMovingRight() == false && isMovingDown() == false && isMovingLeft() == false) {
+			moveUp();
 		}
-
-		if (isMovingRight() == true && isMovingLeft() == false) {
+		
+		// Moving Right
+		if (isMovingUp() == false && isMovingRight() == true && isMovingDown() == false && isMovingLeft() == false) {
 			moveRight();
 		}
-	}
-
-	public void jump() {
-		if (jumped == false) {
-			speedY = JUMPSPEED;
-			jumped = true;
+		
+		// Moving Down
+		if (isMovingUp() == false && isMovingRight() == false && isMovingDown() == true && isMovingLeft() == false) {
+			moveDown();
 		}
-
+		// Moving Left
+		if (isMovingUp() == false && isMovingRight() == false && isMovingDown() == false && isMovingLeft() == true) {
+			moveLeft();
+		}
 	}
-	
+
+	// Shooting Directions
 	public void shootUp() {
-		Projectile p = new Projectile(centerX + 0 , centerY - 50, "Up");
+		Projectile p = new Projectile(centerX + 0, centerY - 50, "Up");
 		projectiles.add(p);
 	}
-	
-	public void shootRight() {
-		Projectile p = new Projectile(centerX + 50 , centerY - 25, "Right");
-		projectiles.add(p);
-	}
-	
-	public void shootDown() {
-		Projectile p = new Projectile(centerX + 0 , centerY - 10, "Down");
-		projectiles.add(p);
-	}
-	
-	public void shootLeft() {
-		Projectile p = new Projectile(centerX - 50 , centerY - 25, "Left");
-		projectiles.add(p);
-	}
-	
 
+	public void shootRight() {
+		Projectile p = new Projectile(centerX + 50, centerY - 25, "Right");
+		projectiles.add(p);
+	}
+
+	public void shootDown() {
+		Projectile p = new Projectile(centerX + 0, centerY - 10, "Down");
+		projectiles.add(p);
+	}
+
+	public void shootLeft() {
+		Projectile p = new Projectile(centerX - 50, centerY - 25, "Left");
+		projectiles.add(p);
+	}
+
+	// Center Player
 	public int getCenterX() {
 		return centerX;
 	}
 
 	public int getCenterY() {
 		return centerY;
-	}
-
-	public boolean isJumped() {
-		return jumped;
 	}
 
 	public int getSpeedX() {
@@ -160,10 +166,6 @@ public class Player {
 		this.centerY = centerY;
 	}
 
-	public void setJumped(boolean jumped) {
-		this.jumped = jumped;
-	}
-
 	public void setSpeedX(int speedX) {
 		this.speedX = speedX;
 	}
@@ -172,12 +174,12 @@ public class Player {
 		this.speedY = speedY;
 	}
 
-	public boolean isCrouched() {
-		return crouched;
+	public boolean isMovingUp() {
+		return movingUp;
 	}
 
-	public void setCrouched(boolean crouched) {
-		this.crouched = crouched;
+	public void setMovingUp(boolean movingUp) {
+		this.movingUp = movingUp;
 	}
 
 	public boolean isMovingRight() {
@@ -188,6 +190,14 @@ public class Player {
 		this.movingRight = movingRight;
 	}
 
+	public boolean isMovingDown() {
+		return movingDown;
+	}
+
+	public void setMovingDown(boolean movingDown) {
+		this.movingDown = movingDown;
+	}
+
 	public boolean isMovingLeft() {
 		return movingLeft;
 	}
@@ -195,7 +205,7 @@ public class Player {
 	public void setMovingLeft(boolean movingLeft) {
 		this.movingLeft = movingLeft;
 	}
-	
+
 	public ArrayList getProjectiles() {
 		return projectiles;
 	}
