@@ -2,20 +2,39 @@ package cookiegame;
 
 public class Projectile {
 	
-	private int x, y, speedX;
+	private int x, y, speedX, speedY;
 	private boolean visible;
 
-	public Projectile(int startX, int startY) {
+	public Projectile(int startX, int startY, String Direction) {
 		x = startX;
 		y = startY;
-		speedX = 7;
+		
+		if( Direction == "Right"){
+			speedX = 7;
+			speedY = 0;
+		}
+		else if ( Direction == "Left"){
+			speedX = -7;
+			speedY = 0; 
+		}
+		
+		else if ( Direction == "Up"){
+			speedX = 0;
+			speedY = -7; 
+		}
+		
+		else if ( Direction == "Down"){
+			speedX = 0;
+			speedY = 7; 
+		}
 		visible = true;
 		
 	}
 	
 	public void update() {
 		x += speedX;
-		if ( x > 800){
+		y += speedY;
+		if ( x > 800 || x < 0 || y > 480 || y < 0){
 			visible = false;
 			}
 		}

@@ -111,10 +111,26 @@ public class Player {
 
 	}
 	
-	public void shoot() {
-		Projectile p = new Projectile(centerX + 50 , centerY - 25);
+	public void shootUp() {
+		Projectile p = new Projectile(centerX + 25 , centerY - 50, "Up");
 		projectiles.add(p);
 	}
+	
+	public void shootRight() {
+		Projectile p = new Projectile(centerX + 50 , centerY - 25, "Right");
+		projectiles.add(p);
+	}
+	
+	public void shootDown() {
+		Projectile p = new Projectile(centerX + 25 , centerY - 10, "Down");
+		projectiles.add(p);
+	}
+	
+	public void shootLeft() {
+		Projectile p = new Projectile(centerX - 50 , centerY - 25, "Left");
+		projectiles.add(p);
+	}
+	
 
 	public int getCenterX() {
 		return centerX;

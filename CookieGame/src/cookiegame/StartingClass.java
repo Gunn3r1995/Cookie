@@ -83,9 +83,9 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			
 			ArrayList projectiles = player.getProjectiles();
 			for (int i = 0; i < projectiles.size(); i++) {
-				Projectile p = (Projectile) projectiles.get(i);
-				if (p.isVisible() == true) {
-					p.update();
+				Projectile pR = (Projectile) projectiles.get(i);
+				if (pR.isVisible() == true) {
+					pR.update();
 				} else {
 					projectiles.remove(i);
 				}
@@ -130,9 +130,9 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		
 		ArrayList projectiles = player.getProjectiles();
 		for (int i = 0; i < projectiles.size(); i++) {
-			Projectile p = (Projectile) projectiles.get(i);
+			Projectile pR = (Projectile) projectiles.get(i);
 			g.setColor(Color.YELLOW);
-			g.fillRect(p.getX(), p.getY(), 10, 5);
+			g.fillRect(pR.getX(), pR.getY(), 10, 5);
 		}
 
 	}
@@ -167,9 +167,27 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			player.jump();
 			break;
 			
-		case KeyEvent.VK_CONTROL:
+		case KeyEvent.VK_UP:
 			if (player.isCrouched() == false && player.isJumped() == false) {
-				player.shoot();
+				player.shootUp();
+			}
+			break;
+			
+		case KeyEvent.VK_RIGHT:
+			if (player.isCrouched() == false && player.isJumped() == false) {
+				player.shootRight();
+			}
+			break;
+			
+		case KeyEvent.VK_DOWN:
+			if (player.isCrouched() == false && player.isJumped() == false) {
+				player.shootDown();
+			}
+			break;
+			
+		case KeyEvent.VK_LEFT:
+			if (player.isCrouched() == false && player.isJumped() == false) {
+				player.shootLeft();
 			}
 			break;
 
