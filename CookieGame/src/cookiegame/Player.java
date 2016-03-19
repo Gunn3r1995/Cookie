@@ -5,9 +5,8 @@ import java.util.ArrayList;
 public class Player {
 
 	// Constants
-	final int JUMPSPEED = -10;
 	final int MOVESPEED = 5;
-	final int GROUND = 382;
+	final int GROUND = 400;
 
 	private int centerX = 100;
 	private int centerY = GROUND;
@@ -30,6 +29,11 @@ public class Player {
 		if (speedX < 0) {
 			centerX += speedX;
 		}
+		
+		if (speedY < 0 ) {
+			centerY += speedY;
+		}
+		
 		if (speedX == 0 || speedX < 0) {
 			background1.setSpeedX(0);
 			background2.setSpeedX(0);
@@ -38,15 +42,14 @@ public class Player {
 		if (centerX <= 800 && speedX > 0) {
 			centerX += speedX;
 		}
+
+		if (centerY <= 480 && speedY > 0) {
+			centerY += speedY;
+		}
+
 		if (speedX > 0 && centerX > 800) {
 			background1.setSpeedX(-MOVESPEED);
 			background2.setSpeedX(-MOVESPEED);
-		}
-
-		// Updates Y Position
-		centerY += speedY;
-		if (centerY + speedY >= GROUND) {
-			// centerY = GROUND;
 		}
 
 		// Prevents going beyond X coordinate of 0
@@ -99,24 +102,28 @@ public class Player {
 			speedX = 0;
 			speedY = 0;
 		}
-		
+
 		// Moving Up
 		if (isMovingUp() == true && isMovingRight() == false && isMovingDown() == false && isMovingLeft() == false) {
 			moveUp();
+			speedX = 0;
 		}
-		
+
 		// Moving Right
 		if (isMovingUp() == false && isMovingRight() == true && isMovingDown() == false && isMovingLeft() == false) {
 			moveRight();
+			speedY = 0;
 		}
-		
+
 		// Moving Down
 		if (isMovingUp() == false && isMovingRight() == false && isMovingDown() == true && isMovingLeft() == false) {
 			moveDown();
+			speedX = 0;
 		}
 		// Moving Left
 		if (isMovingUp() == false && isMovingRight() == false && isMovingDown() == false && isMovingLeft() == true) {
 			moveLeft();
+			speedY = 0;
 		}
 	}
 
