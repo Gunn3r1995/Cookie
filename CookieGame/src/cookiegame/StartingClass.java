@@ -27,6 +27,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	private static Background background1, background2;
 	private Animation anim, hanim;
 	private String direction;
+	private String moving;
 
 	@Override
 	public void init() {
@@ -142,6 +143,17 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 	@Override
 	public void update(Graphics g) {
+
+		if (direction == "Up") {
+			player.shootUp();
+		} else if (direction == "Right") {
+			player.shootRight();
+		} else if (direction == "Down") {
+			player.shootDown();
+		} else if (direction == "Left") {
+			player.shootLeft();
+		}
+
 		if (image == null) {
 			image = createImage(this.getWidth(), this.getHeight());
 			second = image.getGraphics();
@@ -185,97 +197,100 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		case KeyEvent.VK_W:
 			player.moveUp();
 			player.setMovingUp(true);
+			moving = "Up";
 
 			if (direction == null) {
 				anim = new Animation();
-				anim.addFrame(playerDownL, 200);
-				anim.addFrame(playerDownR, 200);
+				anim.addFrame(playerDownL, 100);
+				anim.addFrame(playerDownR, 100);
 				currentSprite = anim.getImage();
 			} else if (direction == "Up") {
 				anim = new Animation();
-				anim.addFrame(playerUpL, 200);
-				anim.addFrame(playerUpR, 200);
+				anim.addFrame(playerUpL, 100);
+				anim.addFrame(playerUpR, 100);
 				currentSprite = anim.getImage();
 			} else if (direction == "Right") {
 				anim = new Animation();
-				anim.addFrame(playerRightL, 200);
-				anim.addFrame(playerRightR, 200);
+				anim.addFrame(playerRightL, 100);
+				anim.addFrame(playerRightR, 100);
 				currentSprite = anim.getImage();
 			} else if (direction == "Down") {
 				anim = new Animation();
-				anim.addFrame(playerDownL, 200);
-				anim.addFrame(playerDownR, 200);
+				anim.addFrame(playerDownL, 100);
+				anim.addFrame(playerDownR, 100);
 				currentSprite = anim.getImage();
 			} else if (direction == "Left") {
 				anim = new Animation();
-				anim.addFrame(playerLeftL, 200);
-				anim.addFrame(playerLeftR, 200);
+				anim.addFrame(playerLeftL, 100);
+				anim.addFrame(playerLeftR, 100);
 				currentSprite = anim.getImage();
 			}
-			
+
 			break;
 
 		case KeyEvent.VK_S:
 			player.moveDown();
 			player.setMovingDown(true);
+			moving = "Down";
 
 			if (direction == null) {
 				anim = new Animation();
-				anim.addFrame(playerDownL, 200);
-				anim.addFrame(playerDownR, 200);
+				anim.addFrame(playerDownL, 100);
+				anim.addFrame(playerDownR, 100);
 				currentSprite = anim.getImage();
 			} else if (direction == "Up") {
 				anim = new Animation();
-				anim.addFrame(playerUpL, 200);
-				anim.addFrame(playerUpR, 200);
+				anim.addFrame(playerUpL, 100);
+				anim.addFrame(playerUpR, 100);
 				currentSprite = anim.getImage();
 			} else if (direction == "Right") {
 				anim = new Animation();
-				anim.addFrame(playerRightL, 200);
-				anim.addFrame(playerRightR, 200);
+				anim.addFrame(playerRightL, 100);
+				anim.addFrame(playerRightR, 100);
 				currentSprite = anim.getImage();
 			} else if (direction == "Down") {
 				anim = new Animation();
-				anim.addFrame(playerDownL, 200);
-				anim.addFrame(playerDownR, 200);
+				anim.addFrame(playerDownL, 100);
+				anim.addFrame(playerDownR, 100);
 				currentSprite = anim.getImage();
 			} else if (direction == "Left") {
 				anim = new Animation();
-				anim.addFrame(playerLeftL, 200);
-				anim.addFrame(playerLeftR, 200);
+				anim.addFrame(playerLeftL, 100);
+				anim.addFrame(playerLeftR, 100);
 				currentSprite = anim.getImage();
 			}
-			
+
 			break;
 
 		case KeyEvent.VK_A:
 			player.moveLeft();
 			player.setMovingLeft(true);
+			moving = "Left";
 
 			if (direction == null) {
 				anim = new Animation();
-				anim.addFrame(playerDownL, 200);
-				anim.addFrame(playerDownR, 200);
+				anim.addFrame(playerDownL, 100);
+				anim.addFrame(playerDownR, 100);
 				currentSprite = anim.getImage();
 			} else if (direction == "Up") {
 				anim = new Animation();
-				anim.addFrame(playerUpL, 200);
-				anim.addFrame(playerUpR, 200);
+				anim.addFrame(playerUpL, 100);
+				anim.addFrame(playerUpR, 100);
 				currentSprite = anim.getImage();
 			} else if (direction == "Right") {
 				anim = new Animation();
-				anim.addFrame(playerRightL, 200);
-				anim.addFrame(playerRightR, 200);
+				anim.addFrame(playerRightL, 100);
+				anim.addFrame(playerRightR, 100);
 				currentSprite = anim.getImage();
 			} else if (direction == "Down") {
 				anim = new Animation();
-				anim.addFrame(playerDownL, 200);
-				anim.addFrame(playerDownR, 200);
+				anim.addFrame(playerDownL, 100);
+				anim.addFrame(playerDownR, 100);
 				currentSprite = anim.getImage();
 			} else if (direction == "Left") {
 				anim = new Animation();
-				anim.addFrame(playerLeftL, 200);
-				anim.addFrame(playerLeftR, 200);
+				anim.addFrame(playerLeftL, 100);
+				anim.addFrame(playerLeftR, 100);
 				currentSprite = anim.getImage();
 			}
 
@@ -284,31 +299,32 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		case KeyEvent.VK_D:
 			player.moveRight();
 			player.setMovingRight(true);
+			moving = "Right";
 
 			if (direction == null) {
 				anim = new Animation();
-				anim.addFrame(playerDownL, 200);
-				anim.addFrame(playerDownR, 200);
+				anim.addFrame(playerDownL, 100);
+				anim.addFrame(playerDownR, 100);
 				currentSprite = anim.getImage();
 			} else if (direction == "Up") {
 				anim = new Animation();
-				anim.addFrame(playerUpL, 200);
-				anim.addFrame(playerUpR, 200);
+				anim.addFrame(playerUpL, 100);
+				anim.addFrame(playerUpR, 100);
 				currentSprite = anim.getImage();
 			} else if (direction == "Right") {
 				anim = new Animation();
-				anim.addFrame(playerRightL, 200);
-				anim.addFrame(playerRightR, 200);
+				anim.addFrame(playerRightL, 100);
+				anim.addFrame(playerRightR, 100);
 				currentSprite = anim.getImage();
 			} else if (direction == "Down") {
 				anim = new Animation();
-				anim.addFrame(playerDownL, 200);
-				anim.addFrame(playerDownR, 200);
+				anim.addFrame(playerDownL, 100);
+				anim.addFrame(playerDownR, 100);
 				currentSprite = anim.getImage();
 			} else if (direction == "Left") {
 				anim = new Animation();
-				anim.addFrame(playerLeftL, 200);
-				anim.addFrame(playerLeftR, 200);
+				anim.addFrame(playerLeftL, 100);
+				anim.addFrame(playerLeftR, 100);
 				currentSprite = anim.getImage();
 			}
 
@@ -319,34 +335,58 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			break;
 
 		case KeyEvent.VK_UP:
-			player.shootUp();
-			anim = new Animation();
-			anim.addFrame(playerUp, 1250);
-			currentSprite = anim.getImage();
+			if (moving != null ) {
+				anim = new Animation();
+				anim.addFrame(playerUpL, 100);
+				anim.addFrame(playerUpR, 100);
+				currentSprite = anim.getImage();
+			} else {
+				anim = new Animation();
+				anim.addFrame(playerUp, 1250);
+				currentSprite = anim.getImage();
+			}
 			direction = "Up";
 			break;
 
 		case KeyEvent.VK_RIGHT:
-			player.shootRight();
-			anim = new Animation();
-			anim.addFrame(playerRight, 1250);
-			currentSprite = anim.getImage();
+			if (moving != null) {
+				anim = new Animation();
+				anim.addFrame(playerRightL, 100);
+				anim.addFrame(playerRightR, 100);
+				currentSprite = anim.getImage();
+			} else {
+				anim = new Animation();
+				anim.addFrame(playerRight, 1250);
+				currentSprite = anim.getImage();
+			}
 			direction = "Right";
 			break;
 
 		case KeyEvent.VK_DOWN:
-			player.shootDown();
-			anim = new Animation();
-			anim.addFrame(playerDown, 1250);
-			currentSprite = anim.getImage();
+			if (moving != null) {
+				anim = new Animation();
+				anim.addFrame(playerDownL, 100);
+				anim.addFrame(playerDownR, 100);
+				currentSprite = anim.getImage();
+			} else {
+				anim = new Animation();
+				anim.addFrame(playerDown, 1250);
+				currentSprite = anim.getImage();
+			}
 			direction = "Down";
 			break;
 
 		case KeyEvent.VK_LEFT:
-			player.shootLeft();
-			anim = new Animation();
-			anim.addFrame(playerLeft, 1250);
-			currentSprite = anim.getImage();
+			if (moving != null) {
+				anim = new Animation();
+				anim.addFrame(playerLeftL, 100);
+				anim.addFrame(playerLeftR, 100);
+				currentSprite = anim.getImage();
+			} else {
+				anim = new Animation();
+				anim.addFrame(playerLeft, 1250);
+				currentSprite = anim.getImage();
+			}
 			direction = "Left";
 			break;
 
@@ -358,38 +398,22 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_W:
 			player.stopUp();
-			if (direction == "Up"){
-			anim = new Animation();
-			anim.addFrame(playerUp, 1250);
-			currentSprite = anim.getImage();
-			}
+			moving = null;
 			break;
 
 		case KeyEvent.VK_A:
 			player.stopLeft();
-			if (direction == "Left"){
-				anim = new Animation();
-				anim.addFrame(playerLeft, 1250);
-				currentSprite = anim.getImage();
-				}
+			moving = null;
 			break;
 
 		case KeyEvent.VK_S:
 			player.stopDown();
-			if (direction == "Down"){
-				anim = new Animation();
-				anim.addFrame(playerDown, 1250);
-				currentSprite = anim.getImage();
-				}
+			moving = null;
 			break;
 
 		case KeyEvent.VK_D:
 			player.stopRight();
-			if (direction == "Right"){
-				anim = new Animation();
-				anim.addFrame(playerRight, 1250);
-				currentSprite = anim.getImage();
-				}
+			moving = null;
 			break;
 
 		case KeyEvent.VK_SPACE:
@@ -398,28 +422,31 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 		case KeyEvent.VK_UP:
 			anim = new Animation();
-			anim.addFrame(playerDown, 1250);
+			anim.addFrame(playerUp, 500);
+			anim.addFrame(playerDown, 999999999);
 			currentSprite = anim.getImage();
 			direction = null;
 			break;
 
 		case KeyEvent.VK_RIGHT:
 			anim = new Animation();
-			anim.addFrame(playerDown, 1250);
+			anim.addFrame(playerRight, 500);
+			anim.addFrame(playerDown, 999999999);
 			currentSprite = anim.getImage();
 			direction = null;
 			break;
 
 		case KeyEvent.VK_DOWN:
 			anim = new Animation();
-			anim.addFrame(playerDown, 1250);
+			anim.addFrame(playerDown, 999999999);
 			currentSprite = anim.getImage();
 			direction = null;
 			break;
 
 		case KeyEvent.VK_LEFT:
 			anim = new Animation();
-			anim.addFrame(playerDown, 1250);
+			anim.addFrame(playerLeft, 500);
+			anim.addFrame(playerDown, 999999999);
 			currentSprite = anim.getImage();
 			direction = null;
 			break;
