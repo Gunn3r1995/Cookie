@@ -1,20 +1,20 @@
 package cookiegame;
 
+
 public class Background {
-
+	
 	private int backgroundX, backgroundY, speedX;
-
-	public Background(int x, int y) {
+	
+	public Background(int x, int y){
 		backgroundX = x;
 		backgroundY = y;
 		speedX = 0;
-
 	}
-
+	
 	public void update() {
 		backgroundX += speedX;
 
-		if (backgroundX <= -2160) {
+		if (backgroundX <= -2160){
 			backgroundX += 4320;
 		}
 	}
@@ -35,7 +35,7 @@ public class Background {
 		this.backgroundX = backgroundX;
 	}
 
-	public void setBackgroundY(int backgroundY) {
+	public void setBgY(int backgroundY) {
 		this.backgroundY = backgroundY;
 	}
 
@@ -43,4 +43,7 @@ public class Background {
 		this.speedX = speedX;
 	}
 
+	
+	
+	
 }

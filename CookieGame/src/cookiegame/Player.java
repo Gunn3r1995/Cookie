@@ -1,7 +1,5 @@
 package cookiegame;
 
-import java.awt.Graphics;
-
 public class Player {
 
 	// Constants

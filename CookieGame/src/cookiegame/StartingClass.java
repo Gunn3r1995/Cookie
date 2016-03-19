@@ -11,6 +11,10 @@ import java.net.URL;
 
 public class StartingClass extends Applet implements Runnable, KeyListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Player player;
 	private Heliboy heliboy1, heliboy2;
 	private Image image, character, characterDown, characterJumped, currentSprite, heliboy, background;
@@ -22,7 +26,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	public void init() {
 
 		setSize(800, 480);
-		setBackground(Color.BLACK);
+		setBackground(Color.BLUE);
 		setFocusable(true);
 		addKeyListener(this);
 		Frame frame = (Frame) this.getParent().getParent();
